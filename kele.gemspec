@@ -12,4 +12,5 @@
      'http://rubygems.org/gems/kele'
    s.license       = 'MIT'
    s.add_runtime_dependency 'httparty'
+   s.add_runtime_dependency 'json'
  end
