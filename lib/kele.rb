@@ -38,15 +38,30 @@ class Kele
         end
     end
     
-    def create_message(sender, recipient_id, token, subject, message)
+    def create_message(sender, recipient_id, token = nil, subject, message)
         values = {"sender": sender,
                 "recipient_id": recipient_id,
                 "token": token,
                 "subject": subject,
-                "stripped_text": message}
+                "stripped-text": message}
         response = self.class.post("https://www.bloc.io/api/v1/messages", body: values, headers: {"authorization" => @auth_token}).body
         JSON.parse(response)
     end
+    
+    # client.create_message("tchbell@gmail.com", 2362742,"abcd", "Royable with cheese", "Thats what they call a quater pouder in France.")  
+    
+    def create_submission(assignment_branch, assignment_commit_link, checkpoint_id, comment, enrollment_id)
+        values = {
+            "assignment_branch": assignment_branch,
+            "assignment_commit_link": assignment_commit_link,
+            "checkpoint_id": checkpoint_id,
+            "comment": comment,
+            "enrollment_id": enrollment_id
+            }
+        response = self.class.post("https://www.bloc.io/api/v1/checkpoint_submissions", body: values, headers: {"authorization" => @auth_token}).body
+        JSON.parse(response)
+    end
+    # client.create_submission("assignment-22-iterative-search", "https:/github.com/me/repo/commit/5", 1635, "This is my work", 11218)
     
     
     
